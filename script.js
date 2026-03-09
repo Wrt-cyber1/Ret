@@ -1,23 +1,23 @@
 let currentUser="";
 
-function getUsers(){
+function users(){
 return JSON.parse(localStorage.getItem("users")||"{}");
 }
 
-function saveUsers(users){
-localStorage.setItem("users",JSON.stringify(users));
+function saveUsers(data){
+localStorage.setItem("users",JSON.stringify(data));
 }
 
 function register(){
 
-let user=document.getElementById("user").value;
-let pass=document.getElementById("pass").value;
+let u=document.getElementById("user").value;
+let p=document.getElementById("pass").value;
 
-let users=getUsers();
+let data=users();
 
-users[user]={pass:pass,followers:[],photo:""};
+data[u]={pass:p,photo:"",followers:[]};
 
-saveUsers(users);
+saveUsers(data);
 
 alert("Conta criada");
 
@@ -25,19 +25,19 @@ alert("Conta criada");
 
 function login(){
 
-let user=document.getElementById("user").value;
-let pass=document.getElementById("pass").value;
+let u=document.getElementById("user").value;
+let p=document.getElementById("pass").value;
 
-let users=getUsers();
+let data=users();
 
-if(users[user] && users[user].pass===pass){
+if(data[u] && data[u].pass===p){
 
-currentUser=user;
+currentUser=u;
 
 document.getElementById("login").style.display="none";
 document.getElementById("app").style.display="block";
 
-document.getElementById("profileName").innerText=user;
+document.getElementById("name").innerText=u;
 
 updateProfile();
 
@@ -57,30 +57,29 @@ location.reload();
 
 function updateProfile(){
 
-let users=getUsers();
+let data=users();
 
 document.getElementById("followers").innerText=
-"Seguidores: "+users[currentUser].followers.length;
+"Seguidores: "+data[currentUser].followers.length;
 
-if(users[currentUser].photo)
-document.getElementById("profilePic").src=
-users[currentUser].photo;
+if(data[currentUser].photo)
+document.getElementById("avatar").src=data[currentUser].photo;
 
 }
 
-function changePhoto(){
+function changeAvatar(){
 
-let file=document.getElementById("profileUpload").files[0];
+let file=document.getElementById("profilePic").files[0];
 
 let reader=new FileReader();
 
 reader.onload=function(){
 
-let users=getUsers();
+let data=users();
 
-users[currentUser].photo=reader.result;
+data[currentUser].photo=reader.result;
 
-saveUsers(users);
+saveUsers(data);
 
 updateProfile();
 
@@ -93,7 +92,6 @@ reader.readAsDataURL(file);
 function post(){
 
 let file=document.getElementById("photo").files[0];
-
 let caption=document.getElementById("caption").value;
 
 let reader=new FileReader();
@@ -167,7 +165,7 @@ let html=`
 
 <div class="post">
 
-<b>${p.user}</b>
+<b>@${p.user}</b>
 
 <img src="${p.img}">
 
