@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Fekes Social</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h2>Fekes Social</h2>
+<button onclick="logout()">Sair</button>
+</header>
+
+<div class="container">
+
+<div id="login">
+
+<h3>Login</h3>
+
+<input id="user" placeholder="Usuário">
+<input id="pass" type="password" placeholder="Senha">
+
+<button onclick="login()">Entrar</button>
+<button onclick="register()">Cadastrar</button>
+
+</div>
+
+<div id="app" style="display:none">
+
+<div class="profile">
+
+<img id="profilePic" class="avatar">
+
+<h3 id="profileName"></h3>
+
+<p id="followers"></p>
+
+<input type="file" id="profileUpload">
+<button onclick="changePhoto()">Foto de perfil</button>
+
+</div>
+
+<div class="createPost">
+
+<input type="file" id="photo">
+
+<input id="caption" placeholder="Legenda">
+
+<button onclick="post()">Postar</button>
+
+</div>
+
+<div id="feed"></div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
